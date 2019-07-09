@@ -132,7 +132,7 @@ Site : oli.net.in
             <p class="mb-md-0 text-center text-md-left">&copy;2018 Ahmad W Khan</p>
           </div>
           <div class="col-md-6">
-            <p class="credit mb-md-0 text-center text-md-right">Designed and Developed by Ahmad W Khan  AKA &mdash; Oli <a href="http://oli.net.in">(oli.net.in)</a></p>
+            <p class="credit mb-md-0 text-center text-md-right">Designed and Developed by Ahmad W Khan <a href="https://AhmadWKhan.com">(AhmadWKhan.com)</a></p>
           </div>
         </div>
       </div>
@@ -158,12 +158,12 @@ Site : oli.net.in
     var x = document.getElementById('output');
     x.innerHTML = 'loading...';
 
-    $.getJSON('https://talaikis.com/api/quotes/random/', function(response) { 
+    $.getJSON('http://quotes.rest/qod.json', function(response) { 
         console.log(response);
         var output = "";
-        output = "<h6>"+response.quote+"</h6>";
-        output += "<p class='italic'> - "+response.author+"</p>";
-        output += '<p><button onclick="getQuote();" class="btn-info">Tell me something cooler!</i></button></p>';
+        output = "<h6>"+response.contents.quotes[0].quote+"</h6>";
+        output += "<p class='italic'> - "+response.contents.quotes[0].author+"</p>";
+        // output += '<p><button onclick="getQuote();" class="btn-info">Tell me something cooler!</i></button></p>';
 
         x.innerHTML = output;
         // console.log(output);
