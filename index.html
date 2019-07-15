@@ -166,6 +166,24 @@ Site : oli.net.in
 </html>
 
 <script type="text/javascript">
+
+  function displayNotification(quote) {
+  if (Notification.permission == 'granted') {
+    navigator.serviceWorker.getRegistration().then(function(reg) {
+      var options = {
+        body: quote,
+        icon: 'http://ahmadwkhan.com/static/assets/img/landing/qod_icon.png',
+        vibrate: [100, 50, 100],
+        data: {
+          dateOfArrival: Date.now(),
+          primaryKey: 1
+        }
+      };
+      reg.showNotification('New Quote!', options);
+    });
+  }
+}
+
   
   var myImgnameArray = ['img_bg_1.jpg', 'img_bg_2.jpg', 'img_bg_3.jpg'];
 
@@ -175,6 +193,7 @@ Site : oli.net.in
 
     $.getJSON('http://quotes.rest/qod.json', function(response) { 
         console.log(response);
+        displayNotification(response.contents.quotes[0].quote);
         var output = "";
         output = "<h6>"+response.contents.quotes[0].quote+"</h6>";
         output += "<p class='italic'> - "+response.contents.quotes[0].author+"</p>";
