@@ -47,16 +47,39 @@ Site : oli.net.in
           gtag('config', 'UA-115956668-2');
         </script>
         <script>
-           if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js');
-         }
+          if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js')
+  .then(function(registration) {
+    console.log('Registration successful, scope is:', registration.scope);
+  })
+  .catch(function(error) {
+    console.log('Service worker registration failed, error:', error);
+  });
+}
 
-      document.querySelector('#show').addEventListener('click', () => {
-        const iconUrl = document.querySelector('select').selectedOptions[0].value;
-        let imgElement = document.createElement('img');
-        imgElement.src = iconUrl;
-        document.querySelector('#container').appendChild(imgElement);
-      });
+Notification.requestPermission(function(status) {
+    console.log('Notification permission status:', status);
+});
+
+function displayNotification(quote) {
+  if (Notification.permission == 'granted') {
+    navigator.serviceWorker.getRegistration().then(function(reg) {
+      var options = {
+        body: quote,
+        icon: 'images/example.png',
+        vibrate: [100, 50, 100],
+        data: {
+          dateOfArrival: Date.now(),
+          primaryKey: 1
+        }
+      };
+      reg.showNotification('Quote of the Day', options);
+    });
+  }
+}
+
+
+
   </script>
 
 
@@ -166,31 +189,12 @@ Site : oli.net.in
 </html>
 
 <script type="text/javascript">
-
-  function displayNotification(quote) {
-  if (Notification.permission == 'granted') {
-    navigator.serviceWorker.getRegistration().then(function(reg) {
-      var options = {
-        body: quote,
-        icon: 'http://ahmadwkhan.com/static/assets/img/landing/qod_icon.png',
-        vibrate: [100, 50, 100],
-        data: {
-          dateOfArrival: Date.now(),
-          primaryKey: 1
-        }
-      };
-      reg.showNotification('New Quote!', options);
-    });
-  }
-}
-
   
   var myImgnameArray = ['img_bg_1.jpg', 'img_bg_2.jpg', 'img_bg_3.jpg'];
 
   function getQuote() {
     var x = document.getElementById('output');
     x.innerHTML = 'loading...';
-
     $.getJSON('http://quotes.rest/qod.json', function(response) { 
         console.log(response);
         displayNotification(response.contents.quotes[0].quote);
