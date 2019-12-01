@@ -47,7 +47,7 @@ Site : oli.net.in
 
   </head>
   <body>
-    <section id="intro" style="background-image: url('img/ein-steig.jpg');" class="intro">       
+    <section id="intro" style="background-image: url('img/ein-steig.jpg');" class="intro">
       <div class="overlay"></div>
       <div class="content">
         <div class="container clearfix">
@@ -73,7 +73,7 @@ Site : oli.net.in
         </div>
       </nav>
     </header>
-    
+
     <!-- gallery-->
     <section id="gallery" class="gallery">
       <div class="container clearfix">
@@ -126,7 +126,7 @@ Site : oli.net.in
     <!-- gallery end-->
 
     <footer style="background-color: #111;">
-      <div class="container"> 
+      <div class="container">
         <div class="row copyright">
           <div class="col-md-6">
             <p class="mb-md-0 text-center text-md-left">&copy;2018 Ahmad W Khan</p>
@@ -151,14 +151,14 @@ Site : oli.net.in
 </html>
 
 <script type="text/javascript">
-  
+
   var myImgnameArray = ['img_bg_1.jpg', 'img_bg_2.jpg', 'img_bg_3.jpg'];
 
   function getQuote() {
     var x = document.getElementById('output');
     x.innerHTML = 'loading...';
 
-    $.getJSON('http://quotes.rest/qod.json', function(response) { 
+    $.getJSON('https://quotes.rest/qod.json', function(response) { 
         console.log(response);
         var output = "";
         output = "<h6>"+response.contents.quotes[0].quote+"</h6>";
@@ -189,5 +189,5 @@ Site : oli.net.in
   $(document).ready(function(){
     getQuote();
   });
-  
+
 </script>
